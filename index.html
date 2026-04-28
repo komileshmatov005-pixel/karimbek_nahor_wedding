@@ -95,7 +95,7 @@
         function changeLang(lang) {
             const t = translations[lang];
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+            if(event) event.target.classList.add('active');
             document.getElementById('tap-text').innerText = t.tap;
             document.getElementById('bismillah').innerText = t.bismillah;
             document.getElementById('sub-text').innerText = t.sub;
@@ -126,7 +126,14 @@
                 document.getElementById('m').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
             }
         }
-        function downloadICS() { /* ICS Download */ }
+        function downloadICS() {
+            const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:Karimbek & Sevinch - Nahor Oshi\nDTSTART:20260503T030000Z\nDTEND:20260503T050000Z\nLOCATION:Amir Tantanalar Saroyi, Samarqand\nEND:VEVENT\nEND:VCALENDAR";
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', 'taklifnoma_nahor.ics');
+            link.click();
+        }
     </script>
 </body>
 </html>
